@@ -4,6 +4,14 @@ export interface Env {
 
 export default {
     async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
-        console.log(env.DISCORD_WEBHOOK);
+        await fetch(env.DISCORD_WEBHOOK, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                content: '<:harrhy:569924236353994782>',
+            }),
+        });
     },
 };
