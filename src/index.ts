@@ -33,6 +33,18 @@ export default {
                 });
                 break;
             }
+            case '30 13 * * *': {
+                await fetch(env.DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: 'Hi <@585549907193102338>',
+                    }),
+                });
+                break;
+            }
         }
     },
 };
