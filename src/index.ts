@@ -41,7 +41,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        content: `Hi <@585549907193102338>$`,
+                        content: `Hi <@585549907193102338>`,
                     }),
                 });
                 break;
