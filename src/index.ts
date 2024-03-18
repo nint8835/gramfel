@@ -34,7 +34,6 @@ export default {
                 break;
             }
             case '30 13 * * *': {
-                const postfix = Math.random() > 0.75 ? '...' : '';
 
                 await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
@@ -42,7 +41,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        content: `Hi <@585549907193102338>${postfix}`,
+                        content: `Hi <@585549907193102338>$`,
                     }),
                 });
                 break;
