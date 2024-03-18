@@ -48,7 +48,7 @@ export default {
                 break;
             }
 
-            case '0 8 * * 1-5': {
+            case '30 10 * * 1-5': {
                 await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
                     headers: {
