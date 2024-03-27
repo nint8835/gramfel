@@ -47,6 +47,18 @@ export default {
                 });
                 break;
             }
+            case '30 1 * * 1-5': {
+                await fetch(env.DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: 'Go to bed <@335923137558347776>',
+                    }),
+                });
+                break;
+            }
         }
     },
 };
