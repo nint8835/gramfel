@@ -17,22 +17,6 @@ export default {
                 });
                 break;
             }
-            case '30 11 * * *': {
-                const targetDay = new Date(2024, 0, 2);
-                const today = new Date();
-                const diffDays = Math.abs(Math.ceil((targetDay.getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
-
-                await fetch(env.DISCORD_WEBHOOK, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        content: diffDays.toLocaleString(),
-                    }),
-                });
-                break;
-            }
             case '30 13 * * *': {
                 const postfix = Math.random() > 0.75 ? '...' : '';
 
