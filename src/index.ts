@@ -31,7 +31,7 @@ export default {
                 });
                 break;
             }
-            case '30 1 * * 1-5': {
+            case '30 1 * * *': {
                 await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
                     headers: {
