@@ -2,6 +2,14 @@ export interface Env {
     DISCORD_WEBHOOK: string;
 }
 
+function computeSuffix(): string {
+    if (Math.random() > 0.35) {
+        return '.' + computeSuffix();
+    }
+
+    return '';
+}
+
 export default {
     async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
         switch (controller.cron) {
@@ -18,7 +26,7 @@ export default {
                 break;
             }
             case '30 13 * * *': {
-                const postfix = Math.random() > 0.75 ? '...' : '';
+                const postfix = computeSuffix();
 
                 await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
