@@ -3,7 +3,11 @@ export interface Env {
 }
 
 function computeSuffix(): string {
-    if (Math.random() > 0.35) {
+    const now = new Date();
+    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+    const currentDate = now.getDate();
+
+    if (Math.random() < currentDate / (daysInMonth + 1)) {
         return '.' + computeSuffix();
     }
 
