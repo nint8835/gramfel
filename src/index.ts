@@ -30,7 +30,10 @@ export default {
                 break;
             }
             case '30 13 * * *': {
-                const postfix = computeSuffix();
+                let postfix = computeSuffix();
+                if (postfix.length > 1950) {
+                    postfix = postfix.slice(0, 1950);
+                }
 
                 await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
