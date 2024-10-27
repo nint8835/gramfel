@@ -34,16 +34,19 @@ export default {
                 if (postfix.length > 1950) {
                     postfix = postfix.slice(0, 1950);
                 }
+                const message = `Hi <@585549907193102338>${postfix}`;
+                console.log('Sending message', message);
 
-                await fetch(env.DISCORD_WEBHOOK, {
+                const resp = await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        content: `Hi <@585549907193102338>${postfix}`,
+                        content: message,
                     }),
                 });
+                console.log('Response', resp.status, await resp.text());
                 break;
             }
             case '30 1 * * *': {
