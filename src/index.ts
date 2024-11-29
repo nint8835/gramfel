@@ -31,11 +31,16 @@ export default {
             }
             case '30 13 * * *': {
                 let postfix = computeSuffix();
+                let message;
+
                 if (postfix.length > 1950) {
                     postfix = postfix.slice(0, 1950);
                 }
-                const message = `Hi <@585549907193102338>${postfix}`;
-                console.log('Sending message', message);
+                if (Math.random() < 0.05) {
+                    message = `Hi <@178958252820791296> :smiling_imp:${postfix}`;
+                } else {
+                    message = `Hi <@585549907193102338>${postfix}`;
+                }
 
                 const resp = await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
