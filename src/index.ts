@@ -54,7 +54,7 @@ export default {
                 console.log('Response', resp.status, await resp.text());
                 break;
             }
-            case '30 2 * * *': {
+            case '30 1 * * *': {
                 await fetch(env.DISCORD_WEBHOOK, {
                     method: 'POST',
                     headers: {
