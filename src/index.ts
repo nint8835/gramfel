@@ -29,6 +29,18 @@ export default {
                 });
                 break;
             }
+            case '30 12 * * *': {
+                await fetch(env.DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        content: '<@365268923240677396> PAPERS PLEASE',
+                    }),
+                });
+                break;
+            }
             case '30 13 * * *': {
                 let postfix = computeSuffix();
                 let message;
