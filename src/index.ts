@@ -73,7 +73,7 @@ export default {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        content: 'Go to bed <@335923137558347776> <@163488287951028227>',
+                        content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
                     }),
                 });
                 break;
