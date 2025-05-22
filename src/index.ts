@@ -1,8 +1,16 @@
 export interface Env {
     DISCORD_WEBHOOK: string;
+    OK_WEBHOOK_URL: string;
 }
 
-type MessageGenerator = () => string;
+type Channel = 'general' | 'ok';
+
+interface Message {
+    content: string;
+    channel: Channel;
+}
+
+type MessageGenerator = () => Message;
 
 function computeSuffix(): string {
     const now = new Date();
@@ -17,8 +25,14 @@ function computeSuffix(): string {
 }
 
 const responses: Record<string, MessageGenerator> = {
-    '0 17 * * *': () => '<:harrhy:569924236353994782>',
-    '30 12 * * *': () => '<@365268923240677396> PAPERS PLEASE',
+    '0 17 * * *': () => ({
+        content: '<:harrhy:569924236353994782>',
+        channel: 'general',
+    }),
+    '30 12 * * *': () => ({
+        content: '<@365268923240677396> PAPERS PLEASE',
+        channel: 'general',
+    }),
     '30 13 * * *': () => {
         let postfix = computeSuffix();
 
@@ -26,26 +40,39 @@ const responses: Record<string, MessageGenerator> = {
             postfix = postfix.slice(0, 1950);
         }
 
-        if (Math.random() < 0.05) {
-            return `Hi <@178958252820791296> :smiling_imp:${postfix}`;
-        } else {
-            return `Hi <@585549907193102338>${postfix}`;
-        }
+        const content =
+            Math.random() < 0.05
+                ? `Hi <@178958252820791296> :smiling_imp:${postfix}`
+                : `Hi <@585549907193102338>${postfix}`;
+
+        return {
+            content,
+            channel: 'general',
+        };
     },
-    '30 1 * * *': () => 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
-    '30 12 * * 1': () =>
-        '<@224890702218133505> Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.',
+    '30 1 * * *': () => ({
+        content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
+        channel: 'general',
+    }),
+    '0 14 * * 5': () => ({
+        content:
+            'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@480415224164253707>',
+        channel: 'ok',
+    }),
 };
 
 export default {
     async scheduled(controller: ScheduledController, env: Env, ctx: ExecutionContext): Promise<void> {
-        await fetch(env.DISCORD_WEBHOOK, {
+        const message = responses[controller.cron]();
+        const webhookUrl = message.channel === 'ok' ? env.OK_WEBHOOK_URL : env.DISCORD_WEBHOOK;
+
+        await fetch(webhookUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                content: responses[controller.cron](),
+                content: message.content,
             }),
         });
     },
