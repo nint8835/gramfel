@@ -66,7 +66,9 @@ export default {
         const message = responses[controller.cron]();
         const webhookUrl = message.channel === 'ok' ? env.OK_WEBHOOK_URL : env.DISCORD_WEBHOOK;
 
-        await fetch(webhookUrl, {
+        console.log(`Sending message to ${message.channel} channel: ${message.content}`);
+
+        const resp = await fetch(webhookUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -75,5 +77,10 @@ export default {
                 content: message.content,
             }),
         });
+
+        if (!resp.ok) {
+            console.error(`Error sending message: ${resp.status} ${resp.statusText}`);
+            throw new Error(`Failed to send message: ${resp.status} ${resp.statusText}`);
+        }
     },
 };
