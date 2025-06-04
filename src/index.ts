@@ -12,18 +12,6 @@ interface Message {
 
 type MessageGenerator = () => Message;
 
-function computeSuffix(): string {
-    const now = new Date();
-    const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-    const currentDate = now.getDate();
-
-    if (Math.random() < currentDate / (daysInMonth + 1)) {
-        return '.' + computeSuffix();
-    }
-
-    return '';
-}
-
 const responses: Record<string, MessageGenerator> = {
     '0 17 * * *': () => ({
         content: '<:harrhy:569924236353994782>',
@@ -37,7 +25,7 @@ const responses: Record<string, MessageGenerator> = {
         content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
         channel: 'general',
     }),
-    '0 14 * * 1': () => ({
+    '0 14 * * 2': () => ({
         content:
             'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@480415224164253707>',
         channel: 'ok',
