@@ -33,23 +33,6 @@ const responses: Record<string, MessageGenerator> = {
         content: '<@365268923240677396> PAPERS PLEASE',
         channel: 'general',
     }),
-    '30 13 * * *': () => {
-        let postfix = computeSuffix();
-
-        if (postfix.length > 1950) {
-            postfix = postfix.slice(0, 1950);
-        }
-
-        const content =
-            Math.random() < 0.05
-                ? `Hi <@178958252820791296> :smiling_imp:${postfix}`
-                : `Hi <@585549907193102338>${postfix}`;
-
-        return {
-            content,
-            channel: 'general',
-        };
-    },
     '30 1 * * *': () => ({
         content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
         channel: 'general',
