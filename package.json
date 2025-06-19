@@ -2,13 +2,13 @@
     "name": "gramfel",
     "version": "0.0.0",
     "devDependencies": {
-        "@cloudflare/workers-types": "^4.20250522.0",
-        "@typescript-eslint/eslint-plugin": "^8.32.1",
-        "@typescript-eslint/parser": "^8.32.1",
-        "eslint": "^9.27.0",
+        "@cloudflare/workers-types": "^4.20250619.0",
+        "@typescript-eslint/eslint-plugin": "^8.34.1",
+        "@typescript-eslint/parser": "^8.34.1",
+        "eslint": "^9.29.0",
         "prettier": "^3.5.3",
         "typescript": "^5.8.3",
-        "wrangler": "^4.16.1"
+        "wrangler": "^4.20.3"
     },
     "private": true,
     "scripts": {
