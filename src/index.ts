@@ -17,10 +17,6 @@ const responses: Record<string, MessageGenerator> = {
         content: '<:harrhy:569924236353994782>',
         channel: 'general',
     }),
-    '30 12 * * *': () => ({
-        content: '<@365268923240677396> PAPERS PLEASE',
-        channel: 'general',
-    }),
     '30 1 * * *': () => ({
         content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
         channel: 'general',
