@@ -26,10 +26,6 @@ const responses: Record<string, MessageGenerator> = {
             'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@480415224164253707> <@163488287951028227>',
         channel: 'ok',
     }),
-    '30 19 * * *': () => ({
-        content: '<@163488287951028227> brackets pls',
-        channel: 'general',
-    }),
 };
 
 export default {
