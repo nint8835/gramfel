@@ -24,7 +24,7 @@ const responses: Record<string, MessageGenerator> = {
     }),
     '0 14 * * 2': () => ({
         content:
-            'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@480415224164253707> <@163488287951028227>',
+            'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@163488287951028227>',
         channel: 'ok',
     }),
     '15 18 * * 2,3,4,6': () => ({
