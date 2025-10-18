@@ -2,9 +2,10 @@ export interface Env {
     DISCORD_WEBHOOK: string;
     OK_WEBHOOK_URL: string;
     GRASS_TOUCHING_WEBHOOK: string;
+    GAINZ_WEBHOOK: string;
 }
 
-type Channel = 'general' | 'ok' | 'grass-touching';
+type Channel = 'general' | 'ok' | 'grass-touching' | 'gainz';
 
 interface Message {
     content: string;
@@ -31,6 +32,10 @@ const responses: Record<string, MessageGenerator> = {
         content: 'Grass touching <@489123999889227776>',
         channel: 'grass-touching',
     }),
+    '30 0 * * *': () => ({
+        content: 'calorie time <@585549907193102338> <@1428921434390138991>',
+        channel: 'gainz', // Placeholder, will be adjusted below
+    }),
 };
 
 export default {
@@ -41,6 +46,7 @@ export default {
             general: env.DISCORD_WEBHOOK,
             ok: env.OK_WEBHOOK_URL,
             'grass-touching': env.GRASS_TOUCHING_WEBHOOK,
+            gainz: env.GAINZ_WEBHOOK,
         };
 
         const webhookUrl = channelToWebhook[message.channel];
