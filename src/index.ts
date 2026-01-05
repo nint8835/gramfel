@@ -19,16 +19,16 @@ const responses: Record<string, MessageGenerator> = {
         channel: 'general',
     }),
     '30 1 * * *': () => ({
-        content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
+        content: 'Go to bed <@335923137558347776> <@489123999889227776>',
         channel: 'general',
     }),
     '30 2 * * *': () => ({
-        content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
+        content: 'Go to bed <@335923137558347776> <@489123999889227776>',
         channel: 'general',
     }),
     '0 14 * * 2': () => ({
         content:
-            'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@163488287951028227>',
+            'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300>',
         channel: 'ok',
     }),
 };
