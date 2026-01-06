@@ -18,41 +18,20 @@ const responses: Record<string, MessageGenerator> = {
         content: '<:harrhy:569924236353994782>',
         channel: 'general',
     }),
-    '30 1 * * *': () => ({
-        content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
-        channel: 'general',
-    }),
-    '30 2 * * *': () => ({
-        content: 'Go to bed <@335923137558347776> <@163488287951028227> <@489123999889227776>',
-        channel: 'general',
-    }),
-    '0 14 * * 2': () => ({
-        content:
-            'Set a new goal for this week. You are legally obligated to disclose whether you completed last weeks goal, and chat is permitted to shade you if the goal was not achieved.\n<@224890702218133505> <@742187091475169300> <@163488287951028227>',
-        channel: 'ok',
-    }),
 };
 
 function is11PMStJohns(): boolean {
-    return new Date().toLocaleString('en-US', {
-        hour: 'numeric',
-        hour12: false,
-        timeZone: 'America/St_Johns'
-    }).startsWith('23');
+    return new Date()
+        .toLocaleString('en-US', {
+            hour: 'numeric',
+            hour12: false,
+            timeZone: 'America/St_Johns',
+        })
+        .startsWith('23');
 }
 
 export default {
     async scheduled(controller: ScheduledController, env: Env, _ctx: ExecutionContext): Promise<void> {
-        // Both crons, and check if it is 11pm, if not skip.
-        if (controller.cron === '30 1 * * *' || controller.cron === '30 2 * * *') {
-            if (!is11PMStJohns()) {
-                console.log(
-                    `Skipping "go to bed" message - not 11 PM in America/St_Johns (current cron: ${controller.cron})`
-                );
-                return;
-            }
-        }
-
         const message = responses[controller.cron]();
 
         const channelToWebhook: Record<Channel, string> = {
