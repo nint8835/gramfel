@@ -1,7 +1,8 @@
 {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit"
-    }
+  "editor.formatOnSave": true,
+  "gopls": {
+    "formatting.local": "github.com/nint8835/interruption-spotter"
+  },
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true
 }
