@@ -1,0 +1,15 @@
+name: golangci-lint
+
+on:
+  push:
+  pull_request:
+
+permissions: {}
+
+jobs:
+  golangci-lint:
+    uses: nint8835/workflows/.github/workflows/golangci-lint.yaml@main
+    permissions:
+      checks: write
+      contents: read
+      pull-requests: read
