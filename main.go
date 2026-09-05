@@ -9,7 +9,9 @@ import (
 	"io/fs"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -19,6 +21,11 @@ import (
 
 type Config struct {
 	WebhookUrlGeneral string `split_words:"true" required:"true"`
+}
+
+type discordError struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
 }
 
 func Run() error {
@@ -56,11 +63,26 @@ func Run() error {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
+		var urlErr *url.Error
+		if errors.As(err, &urlErr) {
+			return fmt.Errorf("error sending request: %w", urlErr.Err)
+		}
+
 		return fmt.Errorf("error sending request: %w", err)
 	}
 	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode != http.StatusNoContent {
+		var discordErr discordError
+		if err := json.NewDecoder(resp.Body).Decode(&discordErr); err == nil && discordErr.Message != "" {
+			return fmt.Errorf(
+				"unexpected status code %d: Discord error %d: %s",
+				resp.StatusCode,
+				discordErr.Code,
+				strings.TrimSpace(discordErr.Message),
+			)
+		}
+
 		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 

@@ -1,7 +1,7 @@
 {
   "editor.formatOnSave": true,
   "gopls": {
-    "formatting.local": "github.com/nint8835/interruption-spotter"
+    "formatting.local": "github.com/nint8835/gramfel"
   },
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true
