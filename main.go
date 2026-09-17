@@ -11,9 +11,11 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"reflect"
 	"strings"
 	"time"
 
+	"github.com/expr-lang/expr"
 	"github.com/joho/godotenv"
 	"github.com/kelseyhightower/envconfig"
 	"github.com/lmittmann/tint"
@@ -21,11 +23,26 @@ import (
 
 type Config struct {
 	WebhookUrlGeneral string `split_words:"true" required:"true"`
+	MessageExpression string `split_words:"true" default:"\"<:harrhy:569924236353994782>\""`
 }
 
 type discordError struct {
 	Code    int    `json:"code"`
 	Message string `json:"message"`
+}
+
+func evaluateMessage(expression string) (string, error) {
+	program, err := expr.Compile(expression, expr.AsKind(reflect.String))
+	if err != nil {
+		return "", fmt.Errorf("error compiling message expression: %w", err)
+	}
+
+	result, err := expr.Run(program, nil)
+	if err != nil {
+		return "", fmt.Errorf("error evaluating message expression: %w", err)
+	}
+
+	return result.(string), nil
 }
 
 func Run() error {
@@ -41,11 +58,16 @@ func Run() error {
 		return fmt.Errorf("error populating config: %w", err)
 	}
 
+	message, err := evaluateMessage(config.MessageExpression)
+	if err != nil {
+		return err
+	}
+
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 
 	reqBody := map[string]string{
-		"content": "<:harrhy:569924236353994782>",
+		"content": message,
 	}
 
 	buf := new(bytes.Buffer)
@@ -63,8 +85,7 @@ func Run() error {
 
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
-		var urlErr *url.Error
-		if errors.As(err, &urlErr) {
+		if urlErr, ok := errors.AsType[*url.Error](err); ok {
 			return fmt.Errorf("error sending request: %w", urlErr.Err)
 		}
 
@@ -91,7 +112,7 @@ func Run() error {
 
 func main() {
 	slog.SetDefault(slog.New(
-		tint.NewHandler(
+		tint.NewTextHandler(
 			os.Stderr,
 			&tint.Options{
 				TimeFormat: time.Kitchen,
